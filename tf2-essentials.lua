@@ -8,13 +8,91 @@ local function float_to_percent(float)
     return math.floor(float * 100)
 end
 
+local function val_to_percent(val, val_max)
+    return math.floor((val / val_max) * 100 + 0.5)
+end
+
+local function team_to_string(int)
+    if int == 2 then
+        return "RED"
+    elseif int == 3 then
+        return "BLU"
+    end
+end
+
+local function team_to_color(int)
+    if int == 2 then
+        return 255, 32, 0, 255 
+    elseif int == 3 then
+        return 0, 190, 255, 255
+    end
+end
+
 --[[ SEPARATORS ]]--
 gui.Text( gui.Reference( "MISC", "part 3" ), "   --------------- TF2-Essentials ---------------   " );
 gui.Text( gui.Reference( "VISUALS", "Filter" ), "   --------------- TF2-Essentials ---------------   " );
+--gui.Text( gui.Reference( "AIMBOT", "EXTRA", "Extra" ), "   --------------- TF2-Essentials ---------------   " );
 
 --[[ ESP-STUFF ]]
-local esp_class_checkbox = gui.Checkbox( gui.Reference( "VISUALS", "Filter" ), "esp_class_checkbox", "Show Class", false );
-local esp_reveal_medic_charge_checkbox = gui.Checkbox( gui.Reference( "VISUALS", "Filter" ), "esp_reveal_medic_charge_checkbox", "Show Medic Charge", false );
+local esp_class_checkbox = gui.Checkbox( gui.Reference( "VISUALS", "Filter" ), "esp_class_checkbox", "Show Class (For normal ESP!)", false );
+local esp_reveal_medic_charge_checkbox = gui.Checkbox( gui.Reference( "VISUALS", "Filter" ), "esp_reveal_medic_charge_checkbox", "Show Medic Charge (For normal ESP!)", false );
+local esp_headsize_checkbox = gui.Checkbox( gui.Reference( "VISUALS", "Filter" ), "esp_headsize_checkbox", "Head size override", false );
+local esp_headsize_slider = gui.Slider( gui.Reference( "VISUALS", "Filter" ), "esp_headsize_slider", "Head size", 1.0, 0.1, 10.0 );
+
+gui.Text( gui.Reference( "VISUALS", "Filter" ), "" );
+
+local custom_esp_checkbox = gui.Checkbox( gui.Reference( "VISUALS", "Filter" ), "custom_esp_checkbox", "Custom ESP", false );
+local custom_esp_enemyonly_checkbox = gui.Checkbox( gui.Reference( "VISUALS", "Filter" ), "custom_esp_enemyonly_checkbox", "Enemy only ESP", false );
+
+local esp_players_checkbox = gui.Checkbox( gui.Reference( "VISUALS", "Filter" ), "esp_players_checkbox", "Custom players ESP", false );
+local esp_players_filter_multi = gui.Multibox( gui.Reference( "VISUALS", "Filter" ), "Players ESP items" );
+local esp_players_name_checkbox = gui.Checkbox( esp_players_filter_multi, "esp_players_name_checkbox", "Name", false );
+local esp_players_team_checkbox = gui.Checkbox( esp_players_filter_multi, "esp_players_team_checkbox", "Team", false );
+local esp_players_class_checkbox = gui.Checkbox( esp_players_filter_multi, "esp_players_class_checkbox", "Class", false );
+local esp_players_mediccharge_checkbox = gui.Checkbox( esp_players_filter_multi, "esp_players_mediccharge_checkbox", "Medic charge", false );
+local esp_players_box_checkbox = gui.Checkbox( esp_players_filter_multi, "esp_players_box_checkbox", "Box", false );
+local esp_players_health_checkbox = gui.Checkbox( esp_players_filter_multi, "esp_players_health_checkbox", "Health", false );
+local esp_players_weapon_checkbox = gui.Checkbox( esp_players_filter_multi, "esp_players_weapon_checkbox", "Weapon", false );
+
+local esp_dispenser_checkbox = gui.Checkbox( gui.Reference( "VISUALS", "Filter" ), "esp_dispenser_checkbox", "Custom dispenser ESP", false );
+local esp_dispenser_filter_multi = gui.Multibox( gui.Reference( "VISUALS", "Filter" ), "dispenser ESP items" );
+local esp_dispenser_name_checkbox = gui.Checkbox( esp_dispenser_filter_multi, "esp_dispenser_name_checkbox", "Name", false );
+local esp_dispenser_team_checkbox = gui.Checkbox( esp_dispenser_filter_multi, "esp_dispenser_team_checkbox", "Team", false );
+local esp_dispenser_box_checkbox = gui.Checkbox( esp_dispenser_filter_multi, "esp_dispenser_box_checkbox", "Box", false );
+local esp_dispenser_health_checkbox = gui.Checkbox( esp_dispenser_filter_multi, "esp_dispenser_health_checkbox", "Health", false );
+local esp_dispenser_ammo_checkbox = gui.Checkbox( esp_dispenser_filter_multi, "esp_dispenser_ammo_checkbox", "Ammo", false );
+
+local esp_sentry_checkbox = gui.Checkbox( gui.Reference( "VISUALS", "Filter" ), "esp_sentry_checkbox", "Custom sentry ESP", false );
+local esp_sentry_filter_multi = gui.Multibox( gui.Reference( "VISUALS", "Filter" ), "sentry ESP items" );
+local esp_sentry_name_checkbox = gui.Checkbox( esp_sentry_filter_multi, "esp_sentry_name_checkbox", "Name", false );
+local esp_sentry_team_checkbox = gui.Checkbox( esp_sentry_filter_multi, "esp_sentry_team_checkbox", "Team", false );
+local esp_sentry_box_checkbox = gui.Checkbox( esp_sentry_filter_multi, "esp_sentry_box_checkbox", "Box", false );
+local esp_sentry_health_checkbox = gui.Checkbox( esp_sentry_filter_multi, "esp_sentry_health_checkbox", "Health", false );
+local esp_sentry_ammo_checkbox = gui.Checkbox( esp_sentry_filter_multi, "esp_sentry_ammo_checkbox", "Ammo", false );
+local esp_sentry_rockets_checkbox = gui.Checkbox( esp_sentry_filter_multi, "esp_sentry_rockets_checkbox", "Rockets", false );
+
+local esp_teleport_checkbox = gui.Checkbox( gui.Reference( "VISUALS", "Filter" ), "esp_teleport_checkbox", "Custom teleport ESP", false );
+local esp_teleport_filter_multi = gui.Multibox( gui.Reference( "VISUALS", "Filter" ), "teleport ESP items" );
+local esp_teleport_name_checkbox = gui.Checkbox( esp_teleport_filter_multi, "esp_teleport_name_checkbox", "Name", false );
+local esp_teleport_team_checkbox = gui.Checkbox( esp_teleport_filter_multi, "esp_teleport_team_checkbox", "Team", false );
+local esp_teleport_box_checkbox = gui.Checkbox( esp_teleport_filter_multi, "esp_teleport_box_checkbox", "Box", false );
+local esp_teleport_health_checkbox = gui.Checkbox( esp_teleport_filter_multi, "esp_teleport_health_checkbox", "Health", false );
+
+local esp_projectiles_checkbox = gui.Checkbox( gui.Reference( "VISUALS", "Filter" ), "esp_projectiles_checkbox", "Custom projectiles ESP", false );
+local esp_projectiles_filter_multi = gui.Multibox( gui.Reference( "VISUALS", "Filter" ), "projectiles ESP items" );
+local esp_projectiles_name_checkbox = gui.Checkbox( esp_projectiles_filter_multi, "esp_projectiles_name_checkbox", "Name", false );
+local esp_projectiles_team_checkbox = gui.Checkbox( esp_projectiles_filter_multi, "esp_projectiles_team_checkbox", "Team", false );
+local esp_projectiles_box_checkbox = gui.Checkbox( esp_projectiles_filter_multi, "esp_projectiles_box_checkbox", "Box", false );
+
+--[[local esp_weapons_checkbox = gui.Checkbox( gui.Reference( "VISUALS", "Filter" ), "esp_projectiles_checkbox", "Custom weapons ESP", false );
+local esp_weapons_filter_multi = gui.Multibox( gui.Reference( "VISUALS", "Filter" ), "projectiles ESP items" );
+local esp_weapons_name_checkbox = gui.Checkbox( esp_weapons_filter_multi, "esp_weapons_name_checkbox", "Name", false );
+local esp_weapons_box_checkbox = gui.Checkbox( esp_weapons_filter_multi, "esp_weapons_box_checkbox", "Box", false );]]
+
+local esp_items_checkbox = gui.Checkbox( gui.Reference( "VISUALS", "Filter" ), "esp_items_checkbox", "Custom items ESP", false );
+local esp_items_filter_multi = gui.Multibox( gui.Reference( "VISUALS", "Filter" ), "projectiles ESP items" );
+local esp_items_name_checkbox = gui.Checkbox( esp_items_filter_multi, "esp_items_name_checkbox", "Name", false );
+local esp_items_box_checkbox = gui.Checkbox( esp_items_filter_multi, "esp_items_box_checkbox", "Box", false );
 
 --[[ SPECTATORS-STUFF ]]--
 local spectators_checkbox = gui.Checkbox( gui.Reference( "MISC", "part 3" ), "spectators_checkbox", "Spectator List (required for aim disabler)", false );
@@ -23,6 +101,9 @@ local spectators_aim_disable_checkbox = gui.Checkbox( gui.Reference( "MISC", "pa
 local aim_disable_modes_multi = gui.Multibox( gui.Reference( "MISC", "part 3" ), "Disable Conditions" );
 local aim_disable_in_first_checkbox = gui.Checkbox( aim_disable_modes_multi, "aim_disable_in_first_checkbox", "Spectated in firstperson", false );
 local aim_disable_in_third_checkbox = gui.Checkbox( aim_disable_modes_multi, "aim_disable_in_first_checkbox", "Spectated in thirdperson", false );
+
+--[[ OTHER ]]--
+--local autobackstab_checkbox = gui.Checkbox( gui.Reference( "AIMBOT", "EXTRA", "Extra" ), "autobackstab_checkbox", "Auto backstab", false )
 
 local obs_modes = {
     [4] = "(1st person)",
@@ -97,27 +178,43 @@ local function disable_aim_when_spectated(spec_font)
 end 
 
 local class_str = {
-    [1] = "scout",
-    [3] = "soldier",
-    [7] = "pyro",
-    [4] = "demoman",
-    [6] = "heavy",
-    [9] = "engineer",
-    [5] = "medic",
-    [2] = "sniper",
-    [8] = "spy",
+    [1] = "Scout",
+    [3] = "Soldier",
+    [7] = "Pyro",
+    [4] = "Demoman",
+    [6] = "Heavy",
+    [9] = "Engineer",
+    [5] = "Medic",
+    [2] = "Sniper",
+    [8] = "Spy",
 }
+
+
+--[[local function autobackstab()
+    local localplayer = entities.GetLocalPlayer();
+    if localplayer == nil or not localplayer:IsAlive() then return end
+
+    if localplayer:GetPropInt("m_PlayerClass", "m_iClass") == 8 then
+        local active_weapon = localplayer:GetPropEntity('m_hActiveWeapon')
+        if active_weapon:GetClass() == "CTFKnife" then
+            if active_weapon:GetPropInt("m_bReadyToBackstab") == 257 then
+                is_backstabbable = true
+            end
+        end
+    end
+end]]
 
 local function esp_flags(esp)
     local localplayer = entities.GetLocalPlayer()
     local entity = esp:GetEntity()
-    local entity_name = entity:GetName()
+
+    if custom_esp_checkbox:GetValue() then return end
 
     if entity:GetClass() == "CTFPlayer" then
         local active_weapon = entity:GetPropEntity('m_hActiveWeapon')
 
         if esp_class_checkbox:GetValue() then
-            esp:Color(gui.GetValue("clr_esp_box_other_invis"))
+            esp:Color(team_to_color(entity:GetTeamNumber()))
             esp:AddTextTop("Class: " .. class_str[entity:GetPropInt("m_PlayerClass", "m_iClass")])
         end
 
@@ -128,14 +225,252 @@ local function esp_flags(esp)
             esp:AddTextBottom("Charge: " .. charge_level .. "%")
         end
     end
+
+    ::continue_esp_flags::
+end
+
+local function headsize_override(esp)
+    local entity = esp:GetEntity()
+
+    if entity:GetClass() == "CTFPlayer" then
+        if esp_headsize_checkbox:GetValue() then
+            entity:SetProp("m_flHeadScale", esp_headsize_slider:GetValue())
+        else
+            if entity:GetPropFloat("m_flHeadScale") ~= 1.0 then
+                entity:SetProp("m_flHeadScale", 1.0)
+            end
+        end
+    end
+end
+
+
+local function custom_esp(esp)
+    local localplayer = entities.GetLocalPlayer()
+    local entity = esp:GetEntity()
+    local entity_name = entity:GetName()
+    local entity_health_percentage = val_to_percent(entity:GetHealth(), entity:GetMaxHealth())
+    local x1, y1, x2, y2 = esp:GetRect()
+
+    if custom_esp_enemyonly_checkbox:GetValue() and entity:GetTeamNumber() == localplayer:GetTeamNumber() then
+        goto continue_custom_esp
+    end
+
+    --print(entity_name)
+
+    if esp_players_checkbox:GetValue() then
+        if entity:GetClass() == "CTFPlayer" then
+            local entity_active_weapon = entity:GetPropEntity('m_hActiveWeapon')
+            local right_text_count = 0
+
+            local entity_active_weapon_name = nil
+            if entity_active_weapon == nil then
+                entity_active_weapon_name = "Unknown"
+            else
+                entity_active_weapon_name = entity_active_weapon:GetName()
+            end
+
+            --[[ DRAW ]]--
+            if esp_players_health_checkbox:GetValue() then
+                draw.Color(255 - (2.55 * entity_health_percentage), 2.55 * entity_health_percentage, 0, 255)
+                esp:AddBarLeft(entity:GetHealth() / entity:GetMaxHealth())
+            end
+
+            if esp_players_box_checkbox:GetValue() then
+                draw.Color(team_to_color(entity:GetTeamNumber()))
+                draw.OutlinedRect( x1, y1, x2, y2 )
+            end
+
+            --[[ TEXT ]]--
+            if esp_players_name_checkbox:GetValue() then
+                draw.Color( 255, 255, 255, 255 )
+                esp:AddTextTop(entity_name)
+            end
+
+            if esp_players_weapon_checkbox:GetValue() then
+                draw.Color( 255, 255, 255, 255 )
+                esp:AddTextBottom(entity_active_weapon_name)
+            end
+
+            if esp_players_class_checkbox:GetValue() then
+                draw.Color( 255, 255, 255, 255 )
+                draw.TextShadow(x2 + 3, y1 + 11 * right_text_count, class_str[entity:GetPropInt("m_PlayerClass", "m_iClass")])
+                right_text_count = right_text_count + 1
+            end
+
+            if esp_players_team_checkbox:GetValue() then
+                draw.Color(team_to_color(entity:GetTeamNumber()))
+                draw.TextShadow(x2 + 3, y1 + 11 * right_text_count, team_to_string(entity:GetTeamNumber()))
+                right_text_count = right_text_count + 1
+            end
+
+            if esp_players_mediccharge_checkbox:GetValue() and entity_active_weapon ~= nil then
+                if entity_active_weapon:GetClass() == "CWeaponMedigun" then
+                    local charge_level = float_to_percent(entity_active_weapon:GetPropFloat("NonLocalTFWeaponMedigunData", "m_flChargeLevel"))
+
+                    esp:Color(charge_level * 2.55, 255 - charge_level * 2.55, 0, 255)
+                    esp:AddTextTop("Charge: " .. charge_level .. "%")
+                end
+            end
+        end
+    end
+
+    if esp_dispenser_checkbox:GetValue() then
+        if entity_name == "Dispenser" then
+            --[[ DRAW ]]--
+            if esp_dispenser_health_checkbox:GetValue() then
+                draw.Color(255 - (2.55 * entity_health_percentage), 2.55 * entity_health_percentage, 0, 255)
+                esp:AddBarLeft(entity:GetHealth() / entity:GetMaxHealth())
+            end
+
+            if esp_dispenser_ammo_checkbox:GetValue() then
+                draw.Color(217, 149, 67, 255)
+                esp:AddBarBottom(entity:GetPropInt("m_iAmmoMetal") / 400)
+            end
+
+            if esp_dispenser_box_checkbox:GetValue() then
+                draw.Color(team_to_color(entity:GetTeamNumber()))
+                draw.OutlinedRect( x1, y1, x2, y2 )
+            end
+
+            --[[ TEXT ]]--
+            if esp_dispenser_name_checkbox:GetValue() then
+                draw.Color(255, 255, 255, 255)
+                esp:AddTextTop("Dispenser")
+            end
+
+            if esp_dispenser_team_checkbox:GetValue() then
+                draw.Color(team_to_color(entity:GetTeamNumber()))
+                draw.TextShadow(x2 + 3, y1, team_to_string(entity:GetTeamNumber()))
+            end
+
+        end
+    end
+
+    if esp_sentry_checkbox:GetValue() then
+        if entity_name == "Sentrygun" then
+            --[[ DRAW ]]--
+            if esp_sentry_health_checkbox:GetValue() then
+                draw.Color(255 - (2.55 * entity_health_percentage), 2.55 * entity_health_percentage, 0, 255)
+                esp:AddBarLeft(entity:GetHealth() / entity:GetMaxHealth())
+            end
+
+            if esp_sentry_box_checkbox:GetValue() then
+                draw.Color(team_to_color(entity:GetTeamNumber()))
+                draw.OutlinedRect( x1, y1, x2, y2 )
+            end
+
+            --[[ TEXT ]]--
+            if esp_sentry_name_checkbox:GetValue() then
+                draw.Color(255, 255, 255, 255)
+                esp:AddTextTop("Sentry Gun")
+            end
+
+            if esp_sentry_team_checkbox:GetValue() then
+                draw.Color(team_to_color(entity:GetTeamNumber()))
+                draw.TextShadow(x2 + 3, y1, team_to_string(entity:GetTeamNumber()))
+            end
+
+            if esp_sentry_ammo_checkbox:GetValue() then
+                draw.Color( 255, 255, 255, 255 )
+                esp:AddTextBottom("Ammo: " .. entity:GetPropInt("m_iAmmoShells"))
+            end
+
+            if esp_sentry_rockets_checkbox:GetValue() then
+                draw.Color( 255, 255, 255, 255 )
+                esp:AddTextBottom("Rockets: " .. entity:GetPropInt("m_iAmmoRockets"))
+            end
+        end
+    end
+
+    if esp_teleport_checkbox:GetValue() then
+        if entity_name == "Teleporter" then
+            --[[ DRAW ]]--
+            if esp_teleport_box_checkbox:GetValue() then
+                draw.Color(team_to_color(entity:GetTeamNumber()))
+                draw.OutlinedRect( x1, y1, x2, y2 )
+            end
+
+            if esp_teleport_health_checkbox:GetValue() then
+                draw.Color(255 - (2.55 * entity_health_percentage), 2.55 * entity_health_percentage, 0, 255)
+                esp:AddBarBottom(entity:GetHealth() / entity:GetMaxHealth())
+            end
+
+
+            --[[ TEXT ]]--
+            if esp_teleport_name_checkbox:GetValue() then
+                draw.Color(255, 255, 255, 255)
+                esp:AddTextTop("Teleport")
+            end
+
+            if esp_teleport_team_checkbox:GetValue() then
+                draw.Color(team_to_color(entity:GetTeamNumber()))
+                draw.TextShadow(x2 + 3, y1, team_to_string(entity:GetTeamNumber()))
+            end
+        end
+    end
+
+    if esp_projectiles_checkbox:GetValue() then
+        if entity_name == "Rocket" or entity_name == "Pipebomb" or entity_name == "Sticky" then
+            --[[ DRAW ]]--
+            if esp_projectiles_box_checkbox:GetValue() then
+                draw.Color(team_to_color(entity:GetTeamNumber()))
+                draw.OutlinedRect( x1, y1, x2, y2 )
+            end
+
+            --[[ TEXT ]]--
+            if esp_projectiles_name_checkbox:GetValue() then
+                draw.Color(255, 255, 255, 255)
+                esp:AddTextTop(entity_name)
+            end
+
+            if esp_projectiles_team_checkbox:GetValue() then
+                draw.Color(team_to_color(entity:GetTeamNumber()))
+                esp:AddTextBottom(team_to_string(entity:GetTeamNumber()))
+            end
+        end
+    end
+
+    --[[if esp_weapons_box_checkbox:GetValue() then
+        if entity:GetClass() == "DT_TFDroppedWeapon" then
+            if esp_weapons_box_checkbox:GetValue() then
+                draw.Color(255, 255, 255, 255)
+                draw.OutlinedRect( x1, y1, x2, y2 )
+            end
+
+            if esp_weapons_name_checkbox:GetValue() then
+                draw.Color(255, 255, 255, 255)
+                esp:AddTextTop(entity_name)
+            end
+        end
+    end]]
+
+    if esp_items_box_checkbox:GetValue() then
+        if entity_name:find("Ammopack") or entity_name:find("Medkit") then
+            --[[ DRAW ]]--
+            if esp_items_box_checkbox:GetValue() then
+                draw.Color(255, 255, 255, 255)
+                draw.OutlinedRect( x1, y1, x2, y2 )
+            end
+
+            --[[ TEXT ]]--
+            if esp_items_name_checkbox:GetValue() then
+                draw.Color(255, 255, 255, 255)
+                esp:AddTextTop(entity_name)
+            end
+        end
+    end
+
+    ::continue_custom_esp::
 end
 
 callbacks.Register("DrawESP", function(esp) 
     esp_flags(esp)
+    custom_esp(esp)
+    headsize_override(esp)
 end)
 
 callbacks.Register("Draw", function()
-    --[[ DRAW-STUFF ]]--
+    --[[ Spec list stuff ]]--
     screen["x"], screen["y"] = draw.GetScreenSize();
     local spec_font = draw.CreateFont( "Consolas", 15, 400 );
     local spec_font_items = draw.CreateFont( "Consolas", 13, 400 );
@@ -145,6 +480,38 @@ callbacks.Register("Draw", function()
 
         if spectators_aim_disable_checkbox:GetValue() then
             disable_aim_when_spectated(spec_font)
+        end
+    end
+
+    --[[ Custom esp check ]]--
+    if custom_esp_checkbox:GetValue() then
+        local esp_items_disable = {
+            [1] = "esp_box",
+            [2] = "esp_health",
+            [3] = "esp_weapon",
+            [4] = "esp_name",
+            [5] = "esp_enemyonly",
+        }
+
+        local esp_items_enable = {
+            [1] = "esp_players",
+            [2] = "esp_weapons",
+            [3] = "esp_buildings",
+            [4] = "esp_projectiles",
+            [5] = "esp_stickies",
+            [6] = "esp_items",
+        }
+
+        for i in pairs(esp_items_disable) do
+            if gui.GetValue(esp_items_disable[i]) ~= 0 then
+                gui.SetValue(esp_items_disable[i], 0)
+            end
+        end
+
+        for i in pairs(esp_items_enable) do
+            if gui.GetValue(esp_items_enable[i]) ~= 1 then
+                gui.SetValue(esp_items_enable[i], 1)
+            end
         end
     end
 end)
