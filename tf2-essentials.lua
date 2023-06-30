@@ -90,7 +90,7 @@ local esp_weapons_name_checkbox = gui.Checkbox( esp_weapons_filter_multi, "esp_w
 local esp_weapons_box_checkbox = gui.Checkbox( esp_weapons_filter_multi, "esp_weapons_box_checkbox", "Box", false );]]
 
 local esp_items_checkbox = gui.Checkbox( gui.Reference( "VISUALS", "Filter" ), "esp_items_checkbox", "Custom items ESP", false );
-local esp_items_filter_multi = gui.Multibox( gui.Reference( "VISUALS", "Filter" ), "projectiles ESP items" );
+local esp_items_filter_multi = gui.Multibox( gui.Reference( "VISUALS", "Filter" ), "items ESP items" );
 local esp_items_name_checkbox = gui.Checkbox( esp_items_filter_multi, "esp_items_name_checkbox", "Name", false );
 local esp_items_box_checkbox = gui.Checkbox( esp_items_filter_multi, "esp_items_box_checkbox", "Box", false );
 
