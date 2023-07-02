@@ -508,7 +508,7 @@ local function custom_esp(esp)
         end
     end
 
-    if esp_weapons_box_checkbox:GetValue() then
+    if esp_weapons_checkbox:GetValue() then
         if entity:GetClass() == "CTFDroppedWeapon" then
             if esp_weapons_box_checkbox:GetValue() then
                 draw.Color(clr_custom_esp_weapons:GetValue())
@@ -522,7 +522,7 @@ local function custom_esp(esp)
         end
     end
 
-    if esp_items_box_checkbox:GetValue() then
+    if esp_items_checkbox:GetValue() then
         if entity_name:find("Ammopack") or entity_name:find("Medkit") then
             --[[ DRAW ]]--
             if esp_items_box_checkbox:GetValue() then
