@@ -107,7 +107,7 @@ callbacks.Register("Draw", function()
         bIsDragging = false
     end
 
-    if toggle:GetValue() then
+    if toggle:GetValue() and entities.GetLocalPlayer() ~= nil then
         get_spectators()
 
         local mouse_x, mouse_y = input.GetMousePos();
