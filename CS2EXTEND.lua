@@ -1,3 +1,51 @@
+--####################
+gui.Command("clear")
+
+--version check
+local script_name = GetScriptName()
+local local_version = "1.1"
+local current_version = tostring(http.Get("https://raw.githubusercontent.com/olexon/aimware/main/lua_versions/cs2xtend.txt")):sub(1, -2)
+
+local function console_log(buffer)
+    print(string.format("[CS2XTEND %s] %s", local_version, tostring(buffer)))
+end
+
+console_log("checking for updates...")
+if local_version ~= current_version then
+    console_log("update found! downloading...")
+    local new_script = http.Get("https://raw.githubusercontent.com/olexon/aimware/main/CS2EXTEND.lua")
+
+    console_log("updating...")
+    file.Delete(script_name)
+    file.Write(script_name, new_script)
+
+    console_log("successfully updated!")
+    UnloadScript(script_name)
+else
+    console_log("script is up to date!")
+end
+
+--assets check
+local assets_found = false
+
+console_log("checking assets...")
+file.Enumerate(function(f)
+    if f == "cs2xtend/icon.png" then
+        console_log("assets found!")
+        assets_found = true
+    end
+end)
+
+if not assets_found then
+    console_log("assets not found! downloading...")
+    file.Write("cs2xtend/icon.png", http.Get("https://github.com/olexon/Absinthe/blob/main/svg/bg_f8f8f8-flat_750x_075_f-pad_750x1000_f8f8f8-4031151753-removebg-preview.png?raw=true"))
+
+    assets_found = true
+end
+
+console_log("CS2XTEND by olexon loaded successfully!")
+--####################
+
 local xml = gui.XML([[
 <Window var="xmlmenu" name="" width="400" height="500">
     <Tab name="Ragebot">
@@ -105,7 +153,7 @@ local font = draw.CreateFont("Verdana", 15, 500)
 local font2 = draw.CreateFont("Verdana", 13)
 
 local icons = {
-    ["AA"] = draw.CreateTexture(common.DecodePNG(http.Get("https://github.com/olexon/Absinthe/blob/main/svg/bg_f8f8f8-flat_750x_075_f-pad_750x1000_f8f8f8-4031151753-removebg-preview.png?raw=true"))),
+    ["AA"] = draw.CreateTexture(common.DecodePNG(file.Read("cs2xtend/icon.png"))),
 }
 
 ui.menu:SetIcon(icons.AA, 0.7)
