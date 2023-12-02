@@ -2,15 +2,15 @@
 gui.Command("clear")
 
 --version check
-local script_name = GetScriptName()
+--local script_name = GetScriptName()
 local local_version = "1.2"
-local current_version = tostring(http.Get("https://raw.githubusercontent.com/olexon/aimware/main/lua_versions/cs2xtend.txt")):sub(1, -2)
+--local current_version = tostring(http.Get("https://raw.githubusercontent.com/olexon/aimware/main/lua_versions/cs2xtend.txt")):sub(1, -2)
 
 local function console_log(buffer)
     print(string.format("[CS2XTEND %s] %s", local_version, tostring(buffer)))
 end
 
-console_log("checking for updates...")
+--[[console_log("checking for updates...")
 if local_version ~= current_version then
     console_log("update found! downloading...")
     local new_script = http.Get("https://raw.githubusercontent.com/olexon/aimware/main/CS2EXTEND.lua")
@@ -23,7 +23,7 @@ if local_version ~= current_version then
     UnloadScript(script_name)
 else
     console_log("script is up to date!")
-end
+end]]
 
 --assets check
 local assets_found = false
