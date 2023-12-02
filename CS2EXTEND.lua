@@ -3,7 +3,7 @@ gui.Command("clear")
 
 --version check
 local script_name = GetScriptName()
-local local_version = "1.1"
+local local_version = "1.2"
 local current_version = tostring(http.Get("https://raw.githubusercontent.com/olexon/aimware/main/lua_versions/cs2xtend.txt")):sub(1, -2)
 
 local function console_log(buffer)
@@ -44,119 +44,91 @@ if not assets_found then
 end
 
 console_log("CS2XTEND by olexon loaded successfully!")
+
 --####################
-
-local xml = gui.XML([[
-<Window var="xmlmenu" name="" width="400" height="500">
-    <Tab name="Ragebot">
-        <Groupbox name="Main">
-            <Checkbox var="rbot_rapidfire_toggle" name="Rapid Fire Toggle" value="off"/>
-        </Groupbox>
-
-        <Groupbox name="Minimum Damage">
-            <Checkbox var="rbot_dmg_override" name="Override Minimum Damage" value="off"/>
-            <Slider var="dmg_shared" name="Shared" min="1" max="130"/>
-            <Slider var="dmg_zeus" name="Zeus" min="1" max="130"/>
-            <Slider var="dmg_pistol" name="Pistol" min="1" max="130"/>
-            <Slider var="dmg_hpistol" name="Heavy Pistol" min="1" max="130"/>
-            <Slider var="dmg_smg" name="Submachine Gun" min="1" max="130"/>
-            <Slider var="dmg_rifle" name="Rifle" min="1" max="130"/>
-            <Slider var="dmg_shotgun" name="Shotgun" min="1" max="130"/>
-            <Slider var="dmg_scout" name="Scout" min="1" max="130"/>
-            <Slider var="dmg_asniper" name="Auto Sniper" min="1" max="130"/>
-            <Slider var="dmg_sniper" name="Sniper" min="1" max="130"/>
-            <Slider var="dmg_lmg" name="Light Machine Gun" min="1" max="130"/>
-        </Groupbox>
-    </Tab>
-
-    <Tab name="Anti-Aim">
-        <Groupbox name="Base">
-            <Slider var="base_yaw" name="Yaw" min="-180" max="180"/>
-            <Combobox var="base_mode" name="Mode" options=["Static", "Jitter", "flick"]/>
-            <Slider var="base_mode_range" name="Jitter Range" min="1" max="90"/>
-        </Groupbox>
-
-        <Groupbox name="Left Edge">
-            <Slider var="left_yaw" name="Yaw" min="-180" max="180"/>
-            <Combobox var="left_mode" name="Mode" options=["Static", "Jitter", "flick"]/>
-            <Slider var="left_mode_range" name="Jitter Range" min="1" max="90"/>
-        </Groupbox>
-
-        <Groupbox name="Right Edge">
-            <Slider var="right_yaw" name="Yaw" min="-180" max="180"/>
-            <Combobox var="right_mode" name="Mode" options=["Static", "Jitter", "flick"]/>
-            <Slider var="right_mode_range" name="Jitter Range" min="1" max="90"/>
-        </Groupbox>
-    </Tab>
-    
-    <Tab name="Visuals">
-        <Checkbox var="vis_watermark" name="Watermark" value="on">
-            <ColorPicker var="watermark_color" value="200 40 40 255"/>
-        </Checkbox>
-
-        <Checkbox var="vis_keybinds" name="Keybinds" value="off">
-    </Tab>
-</Window>
-]])
-
-local ui = {
-    ["menu"] = xml:Children()(),
-
-    ["rbot_rapidfire_toggle"] = xml:Reference("rbot_rapidfire_toggle"),
-    ["rbot_dmg_override"] = xml:Reference("rbot_dmg_override"),
-    ["dmg_shared"] = xml:Reference("dmg_shared"),
-    ["dmg_zeus"] = xml:Reference("dmg_zeus"),
-    ["dmg_pistol"] = xml:Reference("dmg_pistol"),
-    ["dmg_hpistol"] = xml:Reference("dmg_hpistol"),
-    ["dmg_smg"] = xml:Reference("dmg_smg"),
-    ["dmg_rifle"] = xml:Reference("dmg_rifle"),
-    ["dmg_shotgun"] = xml:Reference("dmg_shotgun"),
-    ["dmg_scout"] = xml:Reference("dmg_scout"),
-    ["dmg_asniper"] = xml:Reference("dmg_asniper"),
-    ["dmg_sniper"] = xml:Reference("dmg_sniper"),
-    ["dmg_lmg"] = xml:Reference("dmg_lmg"),
-
-
-    ["vis_watermark"] = xml:Reference("vis_watermark"),
-    ["watermark_color"] = xml:Reference("vis_watermark"):Children()(),
-    ["vis_keybinds"] = xml:Reference("vis_keybinds"),
-
-    ["base_yaw"] = xml:Reference("base_yaw"),
-    ["base_mode"] = xml:Reference("base_mode"),
-    ["base_mode_range"] = xml:Reference("base_mode_range"),
-
-    ["left_yaw"] = xml:Reference("left_yaw"),
-    ["left_mode"] = xml:Reference("left_mode"),
-    ["left_mode_range"] = xml:Reference("left_mode_range"),
-
-    ["right_yaw"] = xml:Reference("right_yaw"),
-    ["right_mode"] = xml:Reference("right_mode"),
-    ["right_mode_range"] = xml:Reference("right_mode_range"),
-}
-
-local weapon_categories = {
-    [1] = "shared",
-    [2] = "zeus",
-    [3] = "pistol",
-    [4] = "hpistol",
-    [5] = "smg",
-    [6] = "rifle",
-    [7] = "shotgun",
-    [8] = "scout",
-    [9] = "asniper",
-    [10] = "sniper",
-    [11] = "lmg",
-    [12] = "knife"
-}
-
-local font = draw.CreateFont("Verdana", 15, 500)
-local font2 = draw.CreateFont("Verdana", 13)
 
 local icons = {
     ["AA"] = draw.CreateTexture(common.DecodePNG(file.Read("cs2xtend/icon.png"))),
 }
 
-ui.menu:SetIcon(icons.AA, 0.7)
+local main_wnd = gui.Window("main_wnd", "CS2XTEND", 200, 200, 400, 520); main_wnd:SetIcon(icons.AA, 0.9)
+local active_tab = 0 -- 0 - AA | 1 - MISC
+
+local aa_groupboxes = {
+    [0] = gui.Groupbox( main_wnd, "Base Direction", 25, 265, 350, 100),
+    [1] = gui.Groupbox( main_wnd, "Left Direction", 25, 265, 350, 100),
+    [2] = gui.Groupbox( main_wnd, "Right Direction", 25, 265, 350, 100),
+    ["main"] = gui.Groupbox( main_wnd, "Main", 25, 60, 350, 100),
+}
+
+local aa_tab = {
+    pitch_jitter = gui.Checkbox(aa_groupboxes["main"], "pitch_jitter", "Pitch Jitter", 0),
+    manual_left = gui.Keybox(aa_groupboxes["main"], "manual_left", "Manual Left", 0),
+    manual_right = gui.Keybox(aa_groupboxes["main"], "manual_right", "Manual Right", 0),
+    dir_selector = gui.Combobox(aa_groupboxes["main"], "dir_selector", "Select Direction", "Base", "Left", "Right"),
+
+    base_yaw = gui.Slider(aa_groupboxes[0], "base_yaw", "Yaw", 0, -180, 180),
+    base_mode = gui.Combobox(aa_groupboxes[0], "base_mode", "Mode", "Static", "Switch"),
+    base_mode_range = gui.Slider(aa_groupboxes[0], "base_mode_range", "Range", 30, 30, 90),
+
+    left_yaw = gui.Slider(aa_groupboxes[1], "left_yaw", "Yaw", 0, -180, 180),
+    left_mode = gui.Combobox(aa_groupboxes[1], "left_mode", "Mode", "Static", "Switch"),
+    left_mode_range = gui.Slider(aa_groupboxes[1], "left_mode_range", "Range", 30, 30, 90),
+
+    right_yaw = gui.Slider(aa_groupboxes[2], "right_yaw", "Yaw", 0, -180, 180),
+    right_mode = gui.Combobox(aa_groupboxes[2], "right_mode", "Mode", "Static", "Switch"),
+    right_mode_range = gui.Slider(aa_groupboxes[2], "right_mode_range", "Range", 30, 30, 90),
+}
+
+local misc_groupboxes = {
+    ["main"] = gui.Groupbox( main_wnd, "Main", 25, 60, 350, 100),
+}
+
+local misc_tab = {
+    ui_color = gui.ColorPicker(misc_groupboxes["main"], "ui_color", "UI Color", 200, 40, 40, 255),
+    watermark = gui.Checkbox(misc_groupboxes["main"], "watermark", "Watermark", 1),
+}
+
+local aa_btn = gui.Button(main_wnd, "Anti-Aim", function() 
+    active_tab = 0 
+end); aa_btn:SetPosX(10); aa_btn:SetPosY(10); aa_btn:SetWidth(180)
+
+local misc_btn = gui.Button(main_wnd, "Misc", function() 
+    active_tab = 1 
+end); misc_btn:SetPosX(210); misc_btn:SetPosY(10); misc_btn:SetWidth(180)
+
+
+local function HandleUI()
+    if not gui.Reference("menu"):IsActive() and main_wnd:IsActive() then
+        main_wnd:SetActive(false)
+    elseif gui.Reference("menu"):IsActive() and not main_wnd:IsActive() then
+        main_wnd:SetActive(true)
+    end
+
+    if active_tab == 0 then
+        for k, v in pairs(aa_groupboxes) do
+            if k == aa_tab.dir_selector:GetValue() or k == "main" then
+                v:SetInvisible(false)
+            else
+                v:SetInvisible(true)
+            end
+        end
+
+        for k, v in pairs(misc_groupboxes) do
+            v:SetInvisible(true)
+        end
+    elseif active_tab == 1 then
+        for k, v in pairs(aa_groupboxes) do
+            v:SetInvisible(true)
+        end
+
+        for k, v in pairs(misc_groupboxes) do
+            v:SetInvisible(false)
+        end
+    end
+end
+
+--####################
 
 local function strsplit(inputstr, sep)
     if sep == nil then
@@ -195,78 +167,124 @@ local function GetYaw(edge)
     return yaw
 end
 
-local function HandleUI()
-    if not gui.Reference("menu"):IsActive() and ui.menu:IsActive() then
-        ui.menu:SetActive(false)
-    elseif gui.Reference("menu"):IsActive() and not ui.menu:IsActive() then
-        ui.menu:SetActive(true)
-    end
-end
-
-local aa_stamps = {
-    ["base"] = 0,
-    ["left"] = 0,
-    ["right"] = 0,
+local cached_aa = {
+    current_edge = 0, -- 0 - off | 1 - left | 2 - right
+    pitch = {nil, false},
+    at_edges = {nil, false},
 }
 
 local function AntiAim()
-    --BASE
-    if ui.base_mode:GetValue() == 1 then
-        if common.Time() >= aa_stamps.base then
-            SetYaw(ui.base_yaw:GetValue() - ui.base_mode_range:GetValue())
-            aa_stamps.base = common.Time() + 0.007
-        elseif common.Time() < aa_stamps.base then
-            SetYaw(ui.base_yaw:GetValue() + ui.base_mode_range:GetValue())
+    if not entities.GetLocalPawn():IsPlayer() then return end
+
+    --main
+    if aa_tab.pitch_jitter:GetValue() then
+        if not cached_aa.pitch[2] then
+            cached_aa.pitch[1] = gui.GetValue("rbot.antiaim.advanced.pitch")
+            cached_aa.pitch[2] = not cached_aa.pitch[2]
         end
-    elseif ui.base_mode:GetValue() == 2 then
-        if common.Time() >= aa_stamps.base then
-            SetYaw(-ui.base_yaw:GetValue())
-            aa_stamps.base = common.Time() + 0.1
+
+        if globals.TickCount()%2 == 0 then
+            gui.SetValue("rbot.antiaim.advanced.pitch", 1)
         else
-            SetYaw(ui.base_yaw:GetValue())
+            gui.SetValue("rbot.antiaim.advanced.pitch", 2)
         end
-    else 
-        SetYaw(ui.base_yaw:GetValue())
+    else
+        if cached_aa.pitch[2] then
+            gui.SetValue("rbot.antiaim.advanced.pitch", cached_aa.pitch[1])
+            cached_aa.pitch[1] = nil
+            cached_aa.pitch[2] = not cached_aa.pitch[2]
+        end
     end
 
-    --LEFT
-    if ui.left_mode:GetValue() == 1 then
-        if common.Time() >= aa_stamps.left then
-            SetYaw(ui.left_yaw:GetValue() - ui.left_mode_range:GetValue(), "left")
-            aa_stamps.left = common.Time() + 0.007
-        elseif common.Time() < aa_stamps.left then
-            SetYaw(ui.left_yaw:GetValue() + ui.left_mode_range:GetValue(), "left")
-        end
-    elseif ui.left_mode:GetValue() == 2 then
-        if common.Time() >= aa_stamps.left then
-            SetYaw(-ui.left_yaw:GetValue(), "left")
-            aa_stamps.left = common.Time() + 0.1
+    if aa_tab.manual_left:GetValue() ~= 0 and aa_tab.manual_left:GetValue() ~= nil and input.IsButtonPressed(aa_tab.manual_left:GetValue()) then
+        if cached_aa.current_edge == 1 then
+            if cached_aa.at_edges[2] then
+                gui.SetValue("rbot.antiaim.condition.autodir.edges", cached_aa.at_edges[1])
+
+                cached_aa.at_edges[1] = nil
+                cached_aa.at_edges[2] = not cached_aa.at_edges[2]
+            end
+
+            cached_aa.current_edge = 0
         else
-            SetYaw(ui.left_yaw:GetValue(), "left")
+            if not cached_aa.at_edges[2] then
+                cached_aa.at_edges[1] = gui.GetValue("rbot.antiaim.condition.autodir.edges")
+                cached_aa.at_edges[2] = not cached_aa.at_edges[2]
+            end
+
+            if gui.GetValue("rbot.antiaim.condition.autodir.edges") then
+                gui.SetValue("rbot.antiaim.condition.autodir.edges", 0)
+            end
+
+            cached_aa.current_edge = 1
         end
-    else 
-        SetYaw(ui.left_yaw:GetValue(), "left")
     end
 
-    --RIGHT
-    if ui.right_mode:GetValue() == 1 then
-        if common.Time() >= aa_stamps.right then
-            SetYaw(ui.right_yaw:GetValue() - ui.right_mode_range:GetValue(), "right")
-            aa_stamps.right = common.Time() + 0.007
-        elseif common.Time() < aa_stamps.right then
-            SetYaw(ui.right_yaw:GetValue() + ui.right_mode_range:GetValue(), "right")
-        end
-    elseif ui.right_mode:GetValue() == 2 then
-        if common.Time() >= aa_stamps.right then
-            SetYaw(-ui.right_yaw:GetValue(), "right")
-            aa_stamps.right = common.Time() + 0.1
+    if aa_tab.manual_right:GetValue() ~= 0 and aa_tab.manual_right:GetValue() ~= nil and input.IsButtonPressed(aa_tab.manual_right:GetValue()) then
+        if cached_aa.current_edge == 2 then
+            if cached_aa.at_edges[2] then
+                gui.SetValue("rbot.antiaim.condition.autodir.edges", cached_aa.at_edges[1])
+
+                cached_aa.at_edges[1] = nil
+                cached_aa.at_edges[2] = not cached_aa.at_edges[2]
+            end
+
+            cached_aa.current_edge = 0
         else
-            SetYaw(ui.right_yaw:GetValue(), "right")
+            if not cached_aa.at_edges[2] then
+                cached_aa.at_edges[1] = gui.GetValue("rbot.antiaim.condition.autodir.edges")
+                cached_aa.at_edges[2] = not cached_aa.at_edges[2]
+            end
+
+            if gui.GetValue("rbot.antiaim.condition.autodir.edges") then
+                gui.SetValue("rbot.antiaim.condition.autodir.edges", 0)
+            end
+
+            cached_aa.current_edge = 2
         end
-    else 
-        SetYaw(ui.right_yaw:GetValue(), "right")
+    end
+
+    if cached_aa.current_edge == 0 then
+        --BASE
+        if aa_tab.base_mode:GetValue() == 1 then
+            if globals.TickCount()%2 == 0 then
+                SetYaw(aa_tab.base_yaw:GetValue() - aa_tab.base_mode_range:GetValue())
+            else
+                SetYaw(aa_tab.base_yaw:GetValue() + aa_tab.base_mode_range:GetValue())
+            end
+        else 
+            SetYaw(aa_tab.base_yaw:GetValue())
+        end
+
+        --LEFT
+        if aa_tab.left_mode:GetValue() == 1 then
+            if globals.TickCount()%2 == 0 then
+                SetYaw(aa_tab.left_yaw:GetValue() - aa_tab.left_mode_range:GetValue(), "left")
+            else
+                SetYaw(aa_tab.left_yaw:GetValue() + aa_tab.left_mode_range:GetValue(), "left")
+            end
+        else 
+            SetYaw(aa_tab.left_yaw:GetValue(), "left")
+        end
+
+        --RIGHT
+        if aa_tab.right_mode:GetValue() == 1 then
+            if globals.TickCount()%2 == 0 then
+                SetYaw(aa_tab.right_yaw:GetValue() - aa_tab.right_mode_range:GetValue(), "right")
+            else
+                SetYaw(aa_tab.right_yaw:GetValue() + aa_tab.right_mode_range:GetValue(), "right")
+            end
+        else 
+            SetYaw(aa_tab.right_yaw:GetValue(), "right")
+        end
+    elseif cached_aa.current_edge == 1 then
+        SetYaw(90)
+    elseif cached_aa.current_edge == 2 then
+        SetYaw(-90)
     end
 end
+
+--####################
 
 local screen_x, screen_y = draw.GetScreenSize()
 
@@ -274,27 +292,37 @@ local settings_wnd = gui.Window("settings_wnd", "cock", 200, 200, 200, 200); set
 local keybinds_x = gui.Slider(settings_wnd, "keybinds_x", "keybinds_x", 200, 0, screen_x)
 local keybinds_y = gui.Slider(settings_wnd, "keybinds_y", "keybinds_y", 200, 0, screen_y)
 
-local watermark_text = string.format("Aimware | User: %s", cheat.GetUserName())
-local watermark_text_size_x, watermark_text_size_y = draw.GetTextSize(watermark_text)
-
 local last_mouse_x, last_mouse_y = nil, nil
 local is_dragging = false
+
+local font_watermark = draw.CreateFont("Segoe UI Semibold", 24, 500)
+local font_keybinds = draw.CreateFont("Segoe UI Semibold", 18, 500)
+
+draw.SetFont(font_watermark)
+local watermark_text = "aimware"
+local watermark_text_size_x, watermark_text_size_y = draw.GetTextSize(watermark_text)
+
+local user_text = string.lower(cheat.GetUserName())
+local user_text_size_x, user_text_size_y = draw.GetTextSize(user_text)
+
 local function Visuals()
     screen_x, screen_y = draw.GetScreenSize() 
 
-    if ui.vis_watermark:GetValue() then
-        draw.Color(0, 0, 0, 100)
-        draw.FilledRect(screen_x - 12 - watermark_text_size_x, 8, screen_x - 8, 28)
-
-        draw.Color(ui.watermark_color:GetValue())
-        draw.FilledRect(screen_x - 12 - watermark_text_size_x, 8, screen_x - 8, 9)
+    if misc_tab.watermark:GetValue() then
+        draw.Color(0, 0, 0, 125)
+        draw.RoundedRectFill(screen_x - 29 - watermark_text_size_x, 12, screen_x - 22, 37, 4, 1, 1, 1, 1)
+        draw.RoundedRectFill(screen_x - 29 - user_text_size_x, 40, screen_x - 22, 65, 4, 1, 1, 1, 1)
 
         draw.Color(255, 255, 255, 190)
-        draw.SetFont(font)
-        draw.Text(screen_x - 10 - watermark_text_size_x, 14, watermark_text)
+        draw.SetFont(font_watermark)
+        draw.Text(screen_x - 25 - watermark_text_size_x, 18, "aim")
+        draw.Text(screen_x - 25 - user_text_size_x, 46, user_text)
+
+        draw.Color(misc_tab.ui_color:GetValue())
+        draw.Text(screen_x - 25 - watermark_text_size_x/1.75, 18, "ware")
     end
 
-    if ui.vis_keybinds:GetValue() then
+    --[[if ui.vis_keybinds:GetValue() then
         if not input.IsButtonDown(1) and is_dragging then
             is_dragging = false
         end
@@ -321,116 +349,25 @@ local function Visuals()
         local items = 0.5
 
         draw.Color(0, 0, 0, 100)
-        draw.FilledRect(keybinds_x:GetValue(), keybinds_y:GetValue(), keybinds_x:GetValue() + 175, keybinds_y:GetValue() + 20)
+        draw.RoundedRectFill(keybinds_x:GetValue(), keybinds_y:GetValue(), keybinds_x:GetValue() + 175, keybinds_y:GetValue() + 22, 4, 1, 1, 1, 1)
 
-        draw.Color(ui.watermark_color:GetValue())
-        draw.FilledRect(keybinds_x:GetValue(), keybinds_y:GetValue(), keybinds_x:GetValue() + 175, keybinds_y:GetValue() + 1)
+        --draw.Color(ui.watermark_color:GetValue())
+        --draw.FilledRect(keybinds_x:GetValue(), keybinds_y:GetValue(), keybinds_x:GetValue() + 175, keybinds_y:GetValue() + 1)
 
         draw.Color(255, 255, 255, 190)
-        draw.SetFont(font)
-        draw.Text(keybinds_x:GetValue() + draw.GetTextSize("keybinds") + 4, keybinds_y:GetValue() + 5, "keybinds")
+        draw.SetFont(font_keybinds)
+        draw.Text(keybinds_x:GetValue() + 4, keybinds_y:GetValue() + 5, "keybinds")
 
         --items
 
-        if ui.rbot_dmg_override:GetValue() then
-            items = items + 1
 
-            draw.Color(255, 255, 255, 220)
-            draw.SetFont(font2)
-            draw.Text(keybinds_x:GetValue(), keybinds_y:GetValue() + (15 * items), "Minimum Damage Override")
-        end
-
-        if gui.GetValue("rbot.accuracy.attack.shared.magic") ~= nil and gui.GetValue("rbot.accuracy.attack.shared.magic") ~= 0 and input.IsButtonDown(gui.GetValue("rbot.accuracy.attack.shared.magic")) then
-            items = items + 1
-
-            draw.Color(255, 255, 255, 220)
-            draw.SetFont(font2)
-            draw.Text(keybinds_x:GetValue(), keybinds_y:GetValue() + (15 * items), "Magic Bullet")
-        end
-
-        if ui.rbot_rapidfire_toggle:GetValue() or string.find(gui.GetValue("rbot.accuracy.attack.shared.fire"), "\"Rapid Fire\"") then
-            items = items + 1
-
-            draw.Color(255, 255, 255, 220)
-            draw.SetFont(font2)
-            draw.Text(keybinds_x:GetValue(), keybinds_y:GetValue() + (15 * items), "Rapid Fire")
-        end
-    end
+    end]]
 end
 
-local dmg_list = {
-    ["shared"] = 0,
-    ["zeus"] = 0,
-    ["pistol"] = 0,
-    ["hpistol"] = 0,
-    ["smg"] = 0,
-    ["rifle"] = 0,
-    ["shotgun"] = 0,
-    ["scout"] = 0,
-    ["asniper"] = 0,
-    ["sniper"] = 0,
-    ["lmg"] = 0
-}
-
-local was_set_dmg = false
-local function MinDmgOverride()
-    if ui.rbot_dmg_override:GetValue() then
-        if not was_set_dmg then
-            for k, v in pairs(dmg_list) do
-                dmg_list[k] = gui.GetValue(string.format("rbot.hitscan.accuracy.%s.mindamage", k))
-            end
-
-            was_set_dmg = true
-        end
-
-        for k, v in pairs(dmg_list) do
-            if gui.GetValue(string.format("rbot.hitscan.accuracy.%s.mindamage", k)) ~= ui["dmg_" .. k]:GetValue() then
-                gui.SetValue(string.format("rbot.hitscan.accuracy.%s.mindamage", k), ui["dmg_" .. k]:GetValue())
-            end
-        end
-    else
-        if was_set_dmg then
-            for k, v in pairs(dmg_list) do
-                gui.SetValue(string.format("rbot.hitscan.accuracy.%s.mindamage", k), v)
-            end
-
-            was_set_dmg = false
-        end
-    end
-end
-
-local prev_set = {
-    ["rapidfire"] = false
-}
-
-local function Binds()
-    if ui.rbot_rapidfire_toggle:GetValue() then
-        if not prev_set.rapidfire then
-            for i, v in ipairs(weapon_categories) do
-                if not string.find(gui.GetValue("rbot.accuracy.attack." .. v .. ".fire"), "\"Rapid Fire\"") then
-                    gui.SetValue("rbot.accuracy.attack." .. v .. ".fire", "Rapid Fire")
-                end
-            end
-
-            prev_set.rapidfire = true
-        end
-    else
-        if prev_set.rapidfire then
-            for i, v in ipairs(weapon_categories) do
-                if string.find(gui.GetValue("rbot.accuracy.attack." .. v .. ".fire"), "\"Rapid Fire\"") then
-                    gui.SetValue("rbot.accuracy.attack." .. v .. ".fire", "Off")
-                end
-            end
-
-            prev_set.rapidfire = false
-        end
-    end
-end
+--####################
 
 callbacks.Register("Draw", function() 
     HandleUI()
     AntiAim()
     Visuals()
-    MinDmgOverride()
-    Binds()
 end)
