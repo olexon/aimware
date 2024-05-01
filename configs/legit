@@ -15,7 +15,7 @@ esp.chams.enemy.overlay.glowhealth.healthclr1 255 0 0 255
 esp.chams.enemy.overlay.glowhealth.healthclr2 0 255 0 255
 esp.chams.enemy.overlay.wireframe "Off"
 esp.chams.enemy.overlay.wireframe.clr 239 199 53 150
-esp.chams.enemy.visible "Flat"
+esp.chams.enemy.visible "Off"
 esp.chams.enemy.visible.clr 87 225 0 255
 esp.chams.enemyattachments.occluded "Off"
 esp.chams.enemyattachments.occluded.clr 87 225 0 255
@@ -23,7 +23,7 @@ esp.chams.enemyattachments.overlay.glow "Off"
 esp.chams.enemyattachments.overlay.glow.clr 255 255 255 255
 esp.chams.enemyattachments.overlay.wireframe "Off"
 esp.chams.enemyattachments.overlay.wireframe.clr 239 199 53 150
-esp.chams.enemyattachments.visible "Flat"
+esp.chams.enemyattachments.visible "Off"
 esp.chams.enemyattachments.visible.clr 77 171 255 255
 esp.chams.friendly.occluded "Off"
 esp.chams.friendly.occluded.clr 48 210 55 255
@@ -105,20 +105,20 @@ esp.other.radaralpha 150
 esp.other.radardist 1000
 esp.other.recoilcrosshair "Off"
 esp.other.recoilcrosshair.clr 255 0 0 255
-esp.overlay.enemy.ammo "On"
+esp.overlay.enemy.ammo "Off"
 esp.overlay.enemy.ammo.anchor 1
 esp.overlay.enemy.ammo.clr1 0 191 236 255
 esp.overlay.enemy.ammo.clr2 0 191 236 255
-esp.overlay.enemy.armor "On"
+esp.overlay.enemy.armor "Off"
 esp.overlay.enemy.armor.anchor 2
 esp.overlay.enemy.armor.clr1 255 255 255 255
 esp.overlay.enemy.barrel "Off"
 esp.overlay.enemy.barrel.clr1 168 50 83 255
 esp.overlay.enemy.box "Off"
 esp.overlay.enemy.box.clr1 87 225 0 255
-esp.overlay.enemy.dormant "On"
+esp.overlay.enemy.dormant "Off"
 esp.overlay.enemy.flags.anchor 3
-esp.overlay.enemy.flags.defusing "On"
+esp.overlay.enemy.flags.defusing "Off"
 esp.overlay.enemy.flags.defusing.clr 244 70 66 255
 esp.overlay.enemy.flags.flashed "Off"
 esp.overlay.enemy.flags.flashed.clr 237 217 78 255
@@ -126,6 +126,8 @@ esp.overlay.enemy.flags.hasc4 "Off"
 esp.overlay.enemy.flags.hasc4.clr 244 70 66 255
 esp.overlay.enemy.flags.hasdefuser "Off"
 esp.overlay.enemy.flags.hasdefuser.clr 255 255 255 255
+esp.overlay.enemy.flags.pin "Off"
+esp.overlay.enemy.flags.pin.clr 237 217 78 255
 esp.overlay.enemy.flags.planting "Off"
 esp.overlay.enemy.flags.planting.clr 244 70 66 255
 esp.overlay.enemy.flags.reloading "Off"
@@ -133,23 +135,23 @@ esp.overlay.enemy.flags.reloading.clr 237 217 78 255
 esp.overlay.enemy.flags.scoped "Off"
 esp.overlay.enemy.flags.scoped.clr 81 191 234 255
 esp.overlay.enemy.health.anchor 2
-esp.overlay.enemy.health.healthbar "On"
+esp.overlay.enemy.health.healthbar "Off"
 esp.overlay.enemy.health.healthbar.healthclr1 0 255 84 255
 esp.overlay.enemy.health.healthbar.healthclr2 254 41 41 255
 esp.overlay.enemy.health.healthnum "Off"
-esp.overlay.enemy.money "On"
+esp.overlay.enemy.money "Off"
 esp.overlay.enemy.money.anchor 3
 esp.overlay.enemy.money.clr1 116 235 52 255
-esp.overlay.enemy.name "On"
+esp.overlay.enemy.name "Off"
 esp.overlay.enemy.name.anchor 0
 esp.overlay.enemy.name.clr1 255 255 255 255
-esp.overlay.enemy.ping "On"
+esp.overlay.enemy.ping "Off"
 esp.overlay.enemy.ping.anchor 3
 esp.overlay.enemy.ping.clr1 255 255 255 255
 esp.overlay.enemy.precision "Off"
 esp.overlay.enemy.skeleton "Off"
 esp.overlay.enemy.skeleton.clr1 105 50 168 255
-esp.overlay.enemy.weapon "Icon"
+esp.overlay.enemy.weapon "Off"
 esp.overlay.enemy.weapon.anchor 1
 esp.overlay.enemy.weapon.clr1 255 255 255 255
 esp.overlay.enemy.weapon.clr2 231 50 46 255
@@ -177,6 +179,8 @@ esp.overlay.friendly.flags.hasc4 "Off"
 esp.overlay.friendly.flags.hasc4.clr 244 70 66 255
 esp.overlay.friendly.flags.hasdefuser "Off"
 esp.overlay.friendly.flags.hasdefuser.clr 255 255 255 255
+esp.overlay.friendly.flags.pin "Off"
+esp.overlay.friendly.flags.pin.clr 237 217 78 255
 esp.overlay.friendly.flags.planting "Off"
 esp.overlay.friendly.flags.planting.clr 244 70 66 255
 esp.overlay.friendly.flags.reloading "Off"
@@ -229,6 +233,7 @@ esp.world.bullettracerfilter.friendly "Off"
 esp.world.bullettracerfilter.friendly.clr 30 154 247 255
 esp.world.bullettracerfilter.local "Off"
 esp.world.bullettracerfilter.local.clr 0 255 0 255
+esp.world.dmgindicator "Off"
 esp.world.fov 90
 esp.world.hiteffects.marker "Off"
 esp.world.hiteffects.sound "On"
@@ -265,16 +270,16 @@ lbot.aim.hitbox.asniper.hitbox 3 2 0 1 0 0 0 0
 lbot.aim.hitbox.asniper.hitboxstep 1.5
 lbot.aim.hitbox.asniper.nearest "On"
 lbot.aim.hitbox.hpistol.hitbox 4 2 0 2 0 0 0 0 
-lbot.aim.hitbox.hpistol.hitboxstep 1.5
+lbot.aim.hitbox.hpistol.hitboxstep 1.25
 lbot.aim.hitbox.hpistol.nearest "On"
 lbot.aim.hitbox.lmg.hitbox 3 2 0 1 0 0 0 0 
 lbot.aim.hitbox.lmg.hitboxstep 1.5
 lbot.aim.hitbox.lmg.nearest "On"
 lbot.aim.hitbox.pistol.hitbox 4 3 0 3 0 0 0 0 
-lbot.aim.hitbox.pistol.hitboxstep 1.5
+lbot.aim.hitbox.pistol.hitboxstep 1
 lbot.aim.hitbox.pistol.nearest "On"
-lbot.aim.hitbox.rifle.hitbox 4 3 0 2 2 0 0 0 
-lbot.aim.hitbox.rifle.hitboxstep 1.75
+lbot.aim.hitbox.rifle.hitbox 4 2 0 2 0 0 0 0 
+lbot.aim.hitbox.rifle.hitboxstep 1.25
 lbot.aim.hitbox.rifle.nearest "On"
 lbot.aim.hitbox.scout.hitbox 4 3 0 3 0 0 0 0 
 lbot.aim.hitbox.scout.hitboxstep 1.5
@@ -285,8 +290,8 @@ lbot.aim.hitbox.shared.nearest "On"
 lbot.aim.hitbox.shotgun.hitbox 3 2 0 1 0 0 0 0 
 lbot.aim.hitbox.shotgun.hitboxstep 1.5
 lbot.aim.hitbox.shotgun.nearest "On"
-lbot.aim.hitbox.smg.hitbox 3 3 0 2 2 0 0 0 
-lbot.aim.hitbox.smg.hitboxstep 1.75
+lbot.aim.hitbox.smg.hitbox 4 1 0 1 0 0 0 0 
+lbot.aim.hitbox.smg.hitboxstep 1
 lbot.aim.hitbox.smg.nearest "On"
 lbot.aim.hitbox.sniper.hitbox 0 3 0 3 1 0 0 0 
 lbot.aim.hitbox.sniper.hitboxstep 1.5
@@ -377,13 +382,13 @@ lbot.trg.weapon.zeus.delay 50
 lbot.trg.weapon.zeus.hitchance 35
 lbot.weapon.accuracy "Heavy Pistol"
 lbot.weapon.accuracy.asniper.hrecoil 50
-lbot.weapon.accuracy.asniper.rcs "Aiming and Standalone"
+lbot.weapon.accuracy.asniper.rcs "Off"
 lbot.weapon.accuracy.asniper.vrecoil 100
 lbot.weapon.accuracy.hpistol.hrecoil 50
 lbot.weapon.accuracy.hpistol.rcs "Off"
 lbot.weapon.accuracy.hpistol.vrecoil 100
 lbot.weapon.accuracy.lmg.hrecoil 50
-lbot.weapon.accuracy.lmg.rcs "Aiming and Standalone"
+lbot.weapon.accuracy.lmg.rcs "Off"
 lbot.weapon.accuracy.lmg.vrecoil 100
 lbot.weapon.accuracy.pistol.hrecoil 50
 lbot.weapon.accuracy.pistol.rcs "Off"
@@ -400,9 +405,9 @@ lbot.weapon.accuracy.shared.vrecoil 100
 lbot.weapon.accuracy.shotgun.hrecoil 50
 lbot.weapon.accuracy.shotgun.rcs "Off"
 lbot.weapon.accuracy.shotgun.vrecoil 100
-lbot.weapon.accuracy.smg.hrecoil 60
+lbot.weapon.accuracy.smg.hrecoil 50
 lbot.weapon.accuracy.smg.rcs "Aiming"
-lbot.weapon.accuracy.smg.vrecoil 60
+lbot.weapon.accuracy.smg.vrecoil 50
 lbot.weapon.accuracy.sniper.hrecoil 50
 lbot.weapon.accuracy.sniper.rcs "Off"
 lbot.weapon.accuracy.sniper.vrecoil 100
@@ -414,8 +419,8 @@ lbot.weapon.aim.asniper.curve 0.5
 lbot.weapon.aim.asniper.randomize 4
 lbot.weapon.aim.asniper.smooth 4
 lbot.weapon.aim.asniper.smoothtype "Static"
-lbot.weapon.aim.hpistol.curve 0.1
-lbot.weapon.aim.hpistol.randomize 1.5
+lbot.weapon.aim.hpistol.curve 0.05
+lbot.weapon.aim.hpistol.randomize 0.7
 lbot.weapon.aim.hpistol.smooth 3.5
 lbot.weapon.aim.hpistol.smoothtype "Static"
 lbot.weapon.aim.lmg.curve 0.5
@@ -426,8 +431,8 @@ lbot.weapon.aim.pistol.curve 0.2
 lbot.weapon.aim.pistol.randomize 1.5
 lbot.weapon.aim.pistol.smooth 5.1
 lbot.weapon.aim.pistol.smoothtype "Static"
-lbot.weapon.aim.rifle.curve 0.3
-lbot.weapon.aim.rifle.randomize 3
+lbot.weapon.aim.rifle.curve 0.1
+lbot.weapon.aim.rifle.randomize 1.5
 lbot.weapon.aim.rifle.smooth 7.5
 lbot.weapon.aim.rifle.smoothtype "Static"
 lbot.weapon.aim.scout.curve 0.05
@@ -442,12 +447,12 @@ lbot.weapon.aim.shotgun.curve 0.5
 lbot.weapon.aim.shotgun.randomize 4
 lbot.weapon.aim.shotgun.smooth 4
 lbot.weapon.aim.shotgun.smoothtype "Static"
-lbot.weapon.aim.smg.curve 0.15
-lbot.weapon.aim.smg.randomize 2.5
-lbot.weapon.aim.smg.smooth 4
+lbot.weapon.aim.smg.curve 0.1
+lbot.weapon.aim.smg.randomize 0.8
+lbot.weapon.aim.smg.smooth 7.5
 lbot.weapon.aim.smg.smoothtype "Static"
-lbot.weapon.aim.sniper.curve 0.15
-lbot.weapon.aim.sniper.randomize 1.5
+lbot.weapon.aim.sniper.curve 0.05
+lbot.weapon.aim.sniper.randomize 0.8
 lbot.weapon.aim.sniper.smooth 3.5
 lbot.weapon.aim.sniper.smoothtype "Static"
 lbot.weapon.aim.zeus.curve 0.5
@@ -534,7 +539,7 @@ lbot.weapon.vis.sniper.smoke "Off"
 lbot.weapon.vis.zeus.autowall "Off"
 lbot.weapon.vis.zeus.smoke "Off"
 lua.savecfg "Off"
-menu 774 203
+menu 692 206
 misc.antiuntrusted "On"
 misc.autoaccept "On"
 misc.autojump "Perfect"
@@ -553,30 +558,30 @@ misc.strafe.snake 0
 misc.strafe.wasd "Off"
 radar 16 16 256 284
 rbot.accuracy.attack "Shared"
-rbot.accuracy.attack.asniper.magic 0
-rbot.accuracy.attack.asniper.magicview "Off"
-rbot.accuracy.attack.hpistol.magic 0
-rbot.accuracy.attack.hpistol.magicview "Off"
-rbot.accuracy.attack.knife.magic 0
-rbot.accuracy.attack.knife.magicview "Off"
-rbot.accuracy.attack.lmg.magic 0
-rbot.accuracy.attack.lmg.magicview "Off"
-rbot.accuracy.attack.pistol.magic 0
-rbot.accuracy.attack.pistol.magicview "Off"
-rbot.accuracy.attack.rifle.magic 0
-rbot.accuracy.attack.rifle.magicview "Off"
-rbot.accuracy.attack.scout.magic 0
-rbot.accuracy.attack.scout.magicview "Off"
-rbot.accuracy.attack.shared.magic 0
-rbot.accuracy.attack.shared.magicview "Off"
-rbot.accuracy.attack.shotgun.magic 0
-rbot.accuracy.attack.shotgun.magicview "Off"
-rbot.accuracy.attack.smg.magic 0
-rbot.accuracy.attack.smg.magicview "Off"
-rbot.accuracy.attack.sniper.magic 0
-rbot.accuracy.attack.sniper.magicview "Off"
-rbot.accuracy.attack.zeus.magic 0
-rbot.accuracy.attack.zeus.magicview "Off"
+rbot.accuracy.attack.asniper.indicator "Off"
+rbot.accuracy.attack.asniper.rapidfire "Off"
+rbot.accuracy.attack.hpistol.indicator "Off"
+rbot.accuracy.attack.hpistol.rapidfire "Off"
+rbot.accuracy.attack.knife.indicator "Off"
+rbot.accuracy.attack.knife.rapidfire "Off"
+rbot.accuracy.attack.lmg.indicator "Off"
+rbot.accuracy.attack.lmg.rapidfire "Off"
+rbot.accuracy.attack.pistol.indicator "Off"
+rbot.accuracy.attack.pistol.rapidfire "Off"
+rbot.accuracy.attack.rifle.indicator "Off"
+rbot.accuracy.attack.rifle.rapidfire "Off"
+rbot.accuracy.attack.scout.indicator "Off"
+rbot.accuracy.attack.scout.rapidfire "Off"
+rbot.accuracy.attack.shared.indicator "Off"
+rbot.accuracy.attack.shared.rapidfire "Off"
+rbot.accuracy.attack.shotgun.indicator "Off"
+rbot.accuracy.attack.shotgun.rapidfire "Off"
+rbot.accuracy.attack.smg.indicator "Off"
+rbot.accuracy.attack.smg.rapidfire "Off"
+rbot.accuracy.attack.sniper.indicator "Off"
+rbot.accuracy.attack.sniper.rapidfire "Off"
+rbot.accuracy.attack.zeus.indicator "Off"
+rbot.accuracy.attack.zeus.rapidfire "Off"
 rbot.accuracy.auto "Shared"
 rbot.accuracy.auto.asniper.scopeopts.scope "On"
 rbot.accuracy.auto.asniper.scopeopts.unscope "Off"
