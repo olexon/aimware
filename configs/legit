@@ -6,8 +6,8 @@ adv.dpi.elements "100% (default)"
 adv.menukey 45
 bind 0 784
 con 167 115
-esp.chams.enemy.occluded "Flat"
-esp.chams.enemy.occluded.clr 0 0 0 255
+esp.chams.enemy.occluded "Off"
+esp.chams.enemy.occluded.clr 255 255 255 211
 esp.chams.enemy.overlay.glow "Off"
 esp.chams.enemy.overlay.glow.clr 255 255 255 255
 esp.chams.enemy.overlay.glowhealth "Off"
@@ -15,16 +15,16 @@ esp.chams.enemy.overlay.glowhealth.healthclr1 255 0 0 255
 esp.chams.enemy.overlay.glowhealth.healthclr2 0 255 0 255
 esp.chams.enemy.overlay.wireframe "Off"
 esp.chams.enemy.overlay.wireframe.clr 239 199 53 150
-esp.chams.enemy.visible "Flat"
-esp.chams.enemy.visible.clr 81 255 0 255
+esp.chams.enemy.visible "Off"
+esp.chams.enemy.visible.clr 255 255 255 211
 esp.chams.enemyattachments.occluded "Off"
-esp.chams.enemyattachments.occluded.clr 240 55 80 255
+esp.chams.enemyattachments.occluded.clr 40 126 0 54
 esp.chams.enemyattachments.overlay.glow "Off"
 esp.chams.enemyattachments.overlay.glow.clr 255 255 255 255
 esp.chams.enemyattachments.overlay.wireframe "Off"
 esp.chams.enemyattachments.overlay.wireframe.clr 239 199 53 150
 esp.chams.enemyattachments.visible "Off"
-esp.chams.enemyattachments.visible.clr 239 199 53 255
+esp.chams.enemyattachments.visible.clr 40 126 0 255
 esp.chams.friendly.occluded "Off"
 esp.chams.friendly.occluded.clr 48 210 55 255
 esp.chams.friendly.overlay.glow "Off"
@@ -70,7 +70,7 @@ esp.chams.localattachments.overlay.glow.clr 255 255 255 255
 esp.chams.localattachments.overlay.wireframe "Off"
 esp.chams.localattachments.overlay.wireframe.clr 15 153 255 150
 esp.chams.localattachments.visible "Off"
-esp.chams.localattachments.visible.clr 45 165 200 255
+esp.chams.localattachments.visible.clr 210 210 210 159
 esp.chams.localweapon.occluded "Off"
 esp.chams.localweapon.occluded.clr 255 255 255 255
 esp.chams.localweapon.overlay.glow "Off"
@@ -78,7 +78,7 @@ esp.chams.localweapon.overlay.glow.clr 255 255 255 255
 esp.chams.localweapon.overlay.wireframe "Off"
 esp.chams.localweapon.overlay.wireframe.clr 255 255 255 255
 esp.chams.localweapon.visible "Off"
-esp.chams.localweapon.visible.clr 255 255 255 255
+esp.chams.localweapon.visible.clr 210 210 210 159
 esp.chams.weapon.occluded "Off"
 esp.chams.weapon.occluded.clr 102 152 46 255
 esp.chams.weapon.overlay.glow "Off"
@@ -107,15 +107,15 @@ esp.other.recoilcrosshair "Off"
 esp.other.recoilcrosshair.clr 255 0 0 255
 esp.overlay.enemy.ammo "Off"
 esp.overlay.enemy.ammo.anchor 1
-esp.overlay.enemy.ammo.clr1 0 136 236 255
-esp.overlay.enemy.ammo.clr2 0 83 166 255
+esp.overlay.enemy.ammo.clr1 255 255 255 255
+esp.overlay.enemy.ammo.clr2 255 255 255 255
 esp.overlay.enemy.armor "Off"
 esp.overlay.enemy.armor.anchor 2
 esp.overlay.enemy.armor.clr1 255 255 255 255
 esp.overlay.enemy.barrel "Off"
 esp.overlay.enemy.barrel.clr1 168 50 83 255
-esp.overlay.enemy.box "Off"
-esp.overlay.enemy.box.clr1 240 60 30 255
+esp.overlay.enemy.box "Outlined"
+esp.overlay.enemy.box.clr1 255 255 255 255
 esp.overlay.enemy.dormant "On"
 esp.overlay.enemy.flags.anchor 3
 esp.overlay.enemy.flags.defusing "On"
@@ -134,11 +134,11 @@ esp.overlay.enemy.flags.reloading "Off"
 esp.overlay.enemy.flags.reloading.clr 237 217 78 255
 esp.overlay.enemy.flags.scoped "Off"
 esp.overlay.enemy.flags.scoped.clr 81 191 234 255
-esp.overlay.enemy.health.anchor 1
-esp.overlay.enemy.health.healthbar "On"
-esp.overlay.enemy.health.healthbar.healthclr1 0 255 0 255
-esp.overlay.enemy.health.healthbar.healthclr2 255 0 0 255
-esp.overlay.enemy.health.healthnum "Off"
+esp.overlay.enemy.health.anchor 2
+esp.overlay.enemy.health.healthbar "Off"
+esp.overlay.enemy.health.healthbar.healthclr1 255 255 255 255
+esp.overlay.enemy.health.healthbar.healthclr2 255 255 255 255
+esp.overlay.enemy.health.healthnum "On"
 esp.overlay.enemy.money "Off"
 esp.overlay.enemy.money.anchor 3
 esp.overlay.enemy.money.clr1 116 235 52 255
@@ -150,9 +150,9 @@ esp.overlay.enemy.ping.anchor 3
 esp.overlay.enemy.ping.clr1 255 255 255 255
 esp.overlay.enemy.precision "Off"
 esp.overlay.enemy.skeleton "Off"
-esp.overlay.enemy.skeleton.clr1 105 50 168 255
-esp.overlay.enemy.weapon "Icon"
-esp.overlay.enemy.weapon.anchor 1
+esp.overlay.enemy.skeleton.clr1 0 0 0 255
+esp.overlay.enemy.weapon "Name"
+esp.overlay.enemy.weapon.anchor 2
 esp.overlay.enemy.weapon.clr1 255 255 255 255
 esp.overlay.enemy.weapon.clr2 255 255 255 255
 esp.overlay.enemy.weaponfilter.active "On"
@@ -211,18 +211,18 @@ esp.overlay.friendly.weapon.clr2 231 50 46 255
 esp.overlay.friendly.weaponfilter.active "Off"
 esp.overlay.friendly.weaponfilter.inventory "Off"
 esp.overlay.friendly.weaponfilter.nades "Off"
-esp.overlay.weapon.ammo "Off"
+esp.overlay.weapon.ammo "On"
 esp.overlay.weapon.ammo.anchor 1
-esp.overlay.weapon.ammo.clr1 0 136 236 255
-esp.overlay.weapon.ammo.clr2 0 83 166 255
+esp.overlay.weapon.ammo.clr1 255 255 255 255
+esp.overlay.weapon.ammo.clr2 255 255 255 255
 esp.overlay.weapon.box "Off"
 esp.overlay.weapon.box.clr1 200 200 100 255
-esp.overlay.weapon.c4timer "Off"
-esp.overlay.weapon.defuser "Off"
-esp.overlay.weapon.nades.icon "Off"
+esp.overlay.weapon.c4timer "On"
+esp.overlay.weapon.defuser "On"
+esp.overlay.weapon.nades.icon "On"
 esp.overlay.weapon.nades.name "Off"
-esp.overlay.weapon.nades.timer "Off"
-esp.overlay.weapon.name "Off"
+esp.overlay.weapon.nades.timer "On"
+esp.overlay.weapon.name "Icon"
 esp.overlay.weapon.name.anchor 0
 esp.overlay.weapon.name.clr1 255 255 255 255
 esp.skins.enabled "Off"
@@ -233,7 +233,7 @@ esp.world.bullettracerfilter.friendly "Off"
 esp.world.bullettracerfilter.friendly.clr 30 154 247 255
 esp.world.bullettracerfilter.local "Off"
 esp.world.bullettracerfilter.local.clr 0 255 0 255
-esp.world.dmgindicator "On"
+esp.world.dmgindicator "Off"
 esp.world.fov 90
 esp.world.hiteffects.marker "Off"
 esp.world.hiteffects.sound "Off"
@@ -265,7 +265,7 @@ lbot.aim.autofire "Off"
 lbot.aim.autopistol 0
 lbot.aim.enable "On"
 lbot.aim.fireonpress "Off"
-lbot.aim.hitbox "Rifle"
+lbot.aim.hitbox "Heavy Pistol"
 lbot.aim.hitbox.asniper.hitbox 3 2 0 1 0 0 0 0 
 lbot.aim.hitbox.asniper.hitboxstep 1.5
 lbot.aim.hitbox.asniper.nearest "On"
@@ -311,7 +311,7 @@ lbot.posadj.backtrack "Off"
 lbot.semirage.autostop "Off"
 lbot.trg.autofire "Off"
 lbot.trg.enable "Off"
-lbot.trg.hitbox "Rifle"
+lbot.trg.hitbox "Heavy Pistol"
 lbot.trg.hitbox.asniper.hitbox 1 1 0 1 0 0 0 0 
 lbot.trg.hitbox.hpistol.hitbox 1 1 0 1 0 0 0 0 
 lbot.trg.hitbox.lmg.hitbox 1 1 0 1 0 0 0 0 
@@ -324,7 +324,7 @@ lbot.trg.hitbox.smg.hitbox 1 1 0 1 0 0 0 0
 lbot.trg.hitbox.sniper.hitbox 1 1 0 1 0 0 0 0 
 lbot.trg.hitbox.zeus.hitbox 1 1 0 1 0 0 0 0 
 lbot.trg.key 0
-lbot.trg.weapon "Rifle"
+lbot.trg.weapon "Heavy Pistol"
 lbot.trg.weapon.asniper.antirecoil "On"
 lbot.trg.weapon.asniper.antispread "On"
 lbot.trg.weapon.asniper.burst 200
@@ -380,7 +380,7 @@ lbot.trg.weapon.zeus.antispread "On"
 lbot.trg.weapon.zeus.burst 200
 lbot.trg.weapon.zeus.delay 0
 lbot.trg.weapon.zeus.hitchance 50
-lbot.weapon.accuracy "Rifle"
+lbot.weapon.accuracy "Heavy Pistol"
 lbot.weapon.accuracy.asniper.hrecoil 50
 lbot.weapon.accuracy.asniper.rcs "Off"
 lbot.weapon.accuracy.asniper.vrecoil 100
@@ -414,7 +414,7 @@ lbot.weapon.accuracy.sniper.vrecoil 100
 lbot.weapon.accuracy.zeus.hrecoil 50
 lbot.weapon.accuracy.zeus.rcs "Off"
 lbot.weapon.accuracy.zeus.vrecoil 100
-lbot.weapon.aim "Rifle"
+lbot.weapon.aim "Heavy Pistol"
 lbot.weapon.aim.asniper.curve 0.5
 lbot.weapon.aim.asniper.randomize 4
 lbot.weapon.aim.asniper.smooth 4
@@ -459,7 +459,7 @@ lbot.weapon.aim.zeus.curve 0.5
 lbot.weapon.aim.zeus.randomize 4
 lbot.weapon.aim.zeus.smooth 4
 lbot.weapon.aim.zeus.smoothtype "Static"
-lbot.weapon.target "Rifle"
+lbot.weapon.target "Heavy Pistol"
 lbot.weapon.target.asniper.fsd 50
 lbot.weapon.target.asniper.maxfov 0
 lbot.weapon.target.asniper.minfov 0
@@ -515,7 +515,7 @@ lbot.weapon.target.zeus.maxfov 0
 lbot.weapon.target.zeus.minfov 0
 lbot.weapon.target.zeus.nst "Off"
 lbot.weapon.target.zeus.tsd 400
-lbot.weapon.vis "Rifle"
+lbot.weapon.vis "Heavy Pistol"
 lbot.weapon.vis.asniper.autowall "Off"
 lbot.weapon.vis.asniper.smoke "Off"
 lbot.weapon.vis.hpistol.autowall "Off"
@@ -539,7 +539,7 @@ lbot.weapon.vis.sniper.smoke "Off"
 lbot.weapon.vis.zeus.autowall "Off"
 lbot.weapon.vis.zeus.smoke "Off"
 lua.savecfg "Off"
-menu 459 213
+menu 430 250
 misc.antiuntrusted "On"
 misc.autoaccept "Off"
 misc.autojump "Off"
@@ -846,7 +846,7 @@ spectators 52 350
 theme.footer.bg 0 0 0 255
 theme.footer.text 255 255 255 255
 theme.header.bg 0 0 0 255
-theme.header.line 21 255 0 211
+theme.header.line 255 255 255 211
 theme.header.text 255 255 255 255
 theme.nav.active 32 32 32 255
 theme.nav.bg 18 18 18 255
@@ -854,9 +854,9 @@ theme.nav.shadow 0 0 0 137
 theme.nav.text 255 255 255 255
 theme.tablist.shadow 0 0 0 127
 theme.tablist.tabactivebg 50 50 50 255
-theme.tablist.tabdecorator 21 255 0 211
+theme.tablist.tabdecorator 255 255 255 211
 theme.tablist.text 255 255 255 255
-theme.tablist.text2 24 255 3 211
+theme.tablist.text2 255 255 255 255
 theme.ui2.border 255 255 255 50
 theme.ui2.lowpoly1 0 0 0 255
 theme.ui2.lowpoly2 18 18 18 255
