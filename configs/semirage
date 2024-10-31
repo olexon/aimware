@@ -256,7 +256,7 @@ esp.world.nadewarning.local "On"
 esp.world.outofview "Arrow"
 esp.world.outofviewscale 40
 esp.world.thirdperson "Off"
-esp.world.thirdpersondist 150
+esp.world.thirdpersondist 100
 esp.world.viewmodelfov 90
 esp.world.wallbanginfo.circle "Off"
 esp.world.wallbanginfo.crosshair "On"
@@ -557,7 +557,7 @@ misc.strafe.mode "Silent"
 misc.strafe.snake 0
 misc.strafe.wasd "On"
 radar 16 16 256 284
-rbot.accuracy.auto "Heavy Pistol"
+rbot.accuracy.auto "Sniper"
 rbot.accuracy.auto.asniper.scopeopts.scope "Off"
 rbot.accuracy.auto.asniper.scopeopts.unscope "Off"
 rbot.accuracy.auto.asniper.stopopts.betweenshots "On"
@@ -685,7 +685,7 @@ rbot.antiaim.left.spinspeed 60
 rbot.antiaim.right "0 Off"
 rbot.antiaim.right.rotation 58
 rbot.antiaim.right.spinspeed 60
-rbot.hitscan.accuracy "Heavy Pistol"
+rbot.hitscan.accuracy "Sniper"
 rbot.hitscan.accuracy.asniper.adaptivedamage "Off"
 rbot.hitscan.accuracy.asniper.autowall "On"
 rbot.hitscan.accuracy.asniper.enhitchance "Off"
@@ -741,7 +741,7 @@ rbot.hitscan.accuracy.zeus.autowall "Off"
 rbot.hitscan.accuracy.zeus.enhitchance "Off"
 rbot.hitscan.accuracy.zeus.hitchance 60
 rbot.hitscan.accuracy.zeus.mindamage 100
-rbot.hitscan.hitbox "Heavy Pistol"
+rbot.hitscan.hitbox "Sniper"
 rbot.hitscan.hitbox.asniper.body.center "Off"
 rbot.hitscan.hitbox.asniper.body.exposed "Off"
 rbot.hitscan.hitbox.asniper.body.lethal "On"
