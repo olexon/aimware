@@ -113,7 +113,7 @@ local wnd = gui.Window("aw95_window", "AW95 - WIN95 KEYGEN", 100, 100, 400, 185)
 local box_elems = {}
 
 local lic_type = gui.Combobox(wnd, "aw95_lic", "License Type", "Retail", "OEM")
-local the_box = gui.Groupbox(wnd, "Your key:", 12, 70, 375, 200)
+local the_box = gui.Groupbox(wnd, "Your Key:", 12, 70, 375, 200)
 
 local gen = gui.Button(wnd, "Generate", function()
     for _, elem in pairs(box_elems) do
