@@ -1,5 +1,5 @@
 --credits: https://github.com/alex-free/open95keygen
---btw why would u even want to generate a windows 95 key with FUCKING AIMWARE WHAT THE FUCK IS WRONG WITH YOU
+--reject modernity
 
 local function gen_oem()
     local key = {}
